@@ -14,8 +14,15 @@ def dashboard_plt(file_name, test_portion, src_threshold_value, use_cache):
     Returns:图片信息
 
     """
-    has_cache = is_has_cache(file_name, test_portion, src_threshold_value)
+    a = file_name.split("/")
+    real_name = a[len(a) - 1]
+    has_cache = is_has_cache(real_name, test_portion, src_threshold_value, True)
     if use_cache and has_cache:
-        show_cache_data(True, file_name, test_portion, src_threshold_value)
+        try:
+            show_cache_data(True, real_name, test_portion, src_threshold_value, True)
+        except Exception:
+            show_new_data(True, file_name, test_portion, src_threshold_value, False, True)
     else:
-        show_new_data(True, file_name, test_portion, src_threshold_value)
+        show_new_data(True, file_name, test_portion, src_threshold_value, False, True)
+
+dashboard_plt("../sample_data/test.csv", 0.3, None, True)
